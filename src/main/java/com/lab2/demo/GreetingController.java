@@ -1,17 +1,23 @@
 package com.lab2.demo;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class GreetingController {
 
-    @Value("${message}")
-    private String message;
+    private final PersonProperties personProperties;
+//
+//    @Value("${message}")
+//    private String message;
+//
+
+    public GreetingController(PersonProperties personProperties) {
+        this.personProperties = personProperties;
+    }
 
     @GetMapping("/")
     public String greeting() {
-        return message;
+        return personProperties.getGreeting() + " Spring Boot! " + personProperties.getFarewell() + " Spring Boot!";
     }
 }
